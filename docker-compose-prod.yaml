@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: postgres_db
+    image: registry.bht-berlin.de:443/s85811/energieplanspiel-webinterface:postgres_db
+    build:
+      context: database
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database/.db:/var/lib/postgresql/data/
+    healthcheck:
+      test: pg_isready -U admin -d energieplanspiel_db
+      interval: 5s
+      start_period: 5s
+
+  backend:
+    container_name: backend
+    image: registry.bht-berlin.de:443/s85811/energieplanspiel-webinterface:backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+
+  nginx:
+    container_name: nginx
+    image: registry.bht-berlin.de:443/s85811/energieplanspiel-webinterface:nginx
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    stdin_open: true
+    depends_on:
+      - backend
+    # extra_hosts:
+    #   - "energieplanspiel:127.0.0.1"

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: postgres_db
+    build:
+      context: database
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database/.db:/var/lib/postgresql/data/
+    healthcheck:
+      test: pg_isready -U admin -d energieplanspiel_db
+      interval: 5s
+      start_period: 5s
+
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 5173:5173
+    stdin_open: true
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/frontend-energieplanspiel:/app/frontend/frontend-energieplanspiel
+      - /app/frontend/frontend-energieplanspiel/node_modules

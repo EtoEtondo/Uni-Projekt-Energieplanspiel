@@ -1,0 +1,107 @@
+# Configuration for energy system simulation
+# Version:
+
+run_model: True
+enable_mobility: True
+enable_building_retrofit: True
+
+# Set True to run your own analysis script on the results.
+# Requires a function 'my_detailed_analysis' within a
+# module 'detailed_analysis.py'
+run_detailed_analysis: True
+display_results: True
+enable_analysing_sequences: True
+plot_team_results: True
+enable_pie_charts: True
+enable_visualization_interactive: True #Turn on/off visualization interactive
+enable_visualization_static: False #Turn on/off visualization static
+
+#Choice of period of time of visualization_interactive:
+#From:
+year_from: 2030
+month_from: 6
+day_from: 11
+#till:
+year_to: 2030
+month_to: 6
+day_to: 15
+
+
+# 'workshop_title' is used as title in results plot and
+# as header in results_table_fancy.xlsx
+workshop_title: 'Test'
+
+debug: False # default setting war true => mehrere Zeitschritte werden berechnet (Testversion)
+solver: 'cbc' # Auswahl des Lösers
+solver_verbose: False # Ausführliche Darstellung des Lösers
+
+number_of_teams: 14
+team_names:
+#  - '1'   # 01
+#  - '2'   # 02
+#  - '3'   # 03
+#  - '4'   # 04
+#  - '5'   # 05
+#  - '6'   # 06
+#  - '7'   # 07
+#  - '8'   # 08
+  - 'Team 01'   # 01
+  - 'Team 02'   # 02
+  - 'Team 03'   # 03
+  - 'Team 04'   # 04
+  - 'Team 05'   # 05
+  - 'Team 06'   # 06
+  - 'Team 07'   # 07
+  - 'Team 08'   # 08
+  - 'Team 09'   # 09
+  - 'Team 10'   # 10
+  - 'Team 11'   # 11
+  - 'Team 12'   # 12
+  - 'Team 13'   # 13
+  - 'Team 14'   # 14
+
+
+
+# Specific energy system design of each team
+design_parameters_file_name:
+  - 'parameters_Team_01.csv'
+  - 'parameters_Team_02.csv'
+  - 'parameters_Team_03.csv'
+  - 'parameters_Team_04.csv'
+  - 'parameters_Team_05.csv'
+  - 'parameters_Team_06.csv'
+  - 'parameters_Team_07.csv'
+  - 'parameters_Team_08.csv'
+  - 'parameters_Team_09.csv'
+  - 'parameters_Team_10.csv'
+  - 'parameters_Team_11.csv'
+  - 'parameters_Team_12.csv'
+  - 'parameters_Team_13.csv'
+  - 'parameters_Team_14.csv'
+
+#1.#Choice of period of time of visualization_static in hours (0-8760):
+start1: 4876
+end1: 4993
+#2.#Choice of period of time of visualization_static in hours (0-8760):
+start2: 1000
+end2: 2000
+#3.#Choice of period of time of visualization_static in hours (0-8760):
+start3:
+end3:
+#4.#Choice of period of time of visualization_static in hours (0-8760):
+start4:
+end4:
+
+# Parameters and technical specifications
+# (same for energy systems of all teams)
+parameters_file_name:  'general_parameters.csv' # Allgemeine Parameter
+
+# Input time series
+# (electrical demand, district heating demand,
+#  irradiation, wind power output)
+time_series_file_name: 'DAT_Energie-Workshop.CSV'
+##time_series_file_name: 'time_series_hourly_values.CSV'
+
+institution: ""
+instructor: ""
+schedule: ""
